@@ -6,25 +6,23 @@
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
-const char* vertexShaderSource = R"(
-    #version 330 core
-    layout (location = 0) in vec3 aPos;
+const char* vertexShaderSource =
+    "#version 330 core\n"
+    "layout (location = 0) in vec3 aPos;"
 
-    void main()
-    {
-        gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-    }
-)";
+    "void main()"
+    "{"
+    "    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);"
+    "}";
 
-const char* fragmentShaderSource = R"(
-    #version 330 core
-    out vec4 FragColor;
+const char* fragmentShaderSource =
+    "#version 330 core\n"
+    "out vec4 FragColor;"
 
-    void main()
-    {
-        FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
-    }
-)";
+    "void main()"
+    "{"
+    "    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
+    "}";
 
 int main()
 {
