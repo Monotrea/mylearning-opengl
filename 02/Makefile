@@ -19,6 +19,9 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CPP) -o $(TARGET) $^ -I $(INCLUDE_DIR) $(LIBS)
 
+.PHONY: run
+run: all
+	./$(TARGET)
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -I $(INCLUDE_DIR) $(LIBS)
