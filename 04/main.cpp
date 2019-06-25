@@ -43,6 +43,20 @@ int main()
         0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f    // top
     };
 
+    float texCoords[] = {
+        0.0f, 0.0f, // lower-left corner
+        1.0f, 0.0f, // lower-right corner
+        0.5f, 1.0f  // top-center corner
+    };
+
+    float borderColor[] = { 1.0f, 1.0f, 0.0f, 1.0f };
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
     // Check how many vertex attributes can be declared.
     int nrAttributes;
     glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
