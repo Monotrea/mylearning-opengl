@@ -23,6 +23,7 @@ target_link_libraries(${PROJECT_NAME} glfw)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 find_package(OpenGL REQUIRED)
+find_package(GLFW REQUIRED)
 
 add_library(GLAD "src/glad.c")
 
