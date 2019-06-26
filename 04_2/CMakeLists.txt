@@ -18,10 +18,11 @@ link_directories(${CMAKE_SOURCE_DIR}/lib)
 
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 
+target_link_libraries(${PROJECT_NAME} glfw)
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 find_package(OpenGL REQUIRED)
-find_package(GLFW3 REQUIRED)
 
 add_library(GLAD "src/glad.c")
 
