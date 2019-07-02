@@ -43,14 +43,14 @@ int main()
         // position           colors              texture coords
         0.5f, -0.5f, 0.0f,    1.0f, 0.0f, 0.0f,   1.0f, 0.0f, // bottom right
         -0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   0.0f, 0.0f, // bottom left
-        0.0f, 0.5f, 0.0f,     0.0f, 0.0f, 1.0f,   0.5f, 1.0f  // top
+        0.5f, 0.5f, 0.0f,     0.0f, 0.0f, 1.0f,   1.0f, 1.0f, // top right
+        -0.5f, 0.5f, 0.0f,     0.0f, 0.0f, 1.0f,   0.0f, 1.0f // top left
     };
 
-    // float texCoords[] = {
-    //     0.0f, 0.0f, // lower-left corner
-    //     1.0f, 0.0f, // lower-right corner
-    //     0.5f, 1.0f  // top-center corner
-    // };
+    unsigned int indices[] = {
+        0, 1, 3,
+        0, 2, 3
+    };
 
     float borderColor[] = { 1.0f, 1.0f, 0.0f, 1.0f };
 
@@ -83,8 +83,8 @@ int main()
     glActiveTexture(GL_TEXTURE0 + 1);
     glBindTexture(GL_TEXTURE_2D, texture2);
     // set the texture wrapping/filtering options (on the currently bound texture object)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -109,6 +109,7 @@ int main()
     std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << "\n";
 
     unsigned int VBO;
+    unsigned int EBO;
     unsigned int VAO;
 
     glGenVertexArrays(1, &VAO);
@@ -116,6 +117,9 @@ int main()
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -142,7 +146,8 @@ int main()
         // ourShader.setFloat4("ourColor", 0.0f, greenValue, 0.0f, 1.0f);
         // glBindTexture(GL_TEXTURE_2D, texture);
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        // glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
         glfwSwapBuffers(window);
